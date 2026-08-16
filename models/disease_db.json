@@ -1,0 +1,941 @@
+{
+  "Heart Attack (Myocardial Infarction)": {
+    "name": "Heart Attack (Myocardial Infarction)",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "A serious medical emergency where blood flow to the heart muscle is severely reduced or blocked.",
+    "symptoms": [
+      "chest_pain",
+      "shortness_of_breath",
+      "pain_radiating_to_left_arm",
+      "cold_sweats",
+      "nausea",
+      "dizziness",
+      "jaw_pain",
+      "anxiety"
+    ],
+    "primary_symptoms": [
+      "chest_pain",
+      "pain_radiating_to_left_arm",
+      "shortness_of_breath"
+    ],
+    "recommendation": "Call 911 or visit the nearest Emergency Room IMMEDIATELY. Do not attempt to drive yourself.",
+    "explanation_template": "Symptoms strongly align with Myocardial Infarction due to acute chest discomfort radiating to upper body accompanied by breathlessness."
+  },
+  "Stroke (Cerebrovascular Accident)": {
+    "name": "Stroke (Cerebrovascular Accident)",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "Interruption of blood supply to the brain causing sudden neurological deficits.",
+    "symptoms": [
+      "facial_droop",
+      "arm_weakness",
+      "slurred_speech",
+      "sudden_confusion",
+      "vision_loss",
+      "severe_sudden_headache",
+      "loss_of_balance"
+    ],
+    "primary_symptoms": [
+      "facial_droop",
+      "arm_weakness",
+      "slurred_speech"
+    ],
+    "recommendation": "Call 911 IMMEDIATELY. Remember FAST (Face, Arms, Speech, Time). Time is critical for clot-busting treatment.",
+    "explanation_template": "Combination of acute neurological symptoms (facial droop, speech impairment, arm weakness) indicates possible ischemic stroke."
+  },
+  "Sepsis": {
+    "name": "Sepsis",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "Life-threatening organ dysfunction caused by a dysregulated host response to infection.",
+    "symptoms": [
+      "high_fever",
+      "rapid_heart_rate",
+      "confusion",
+      "extreme_shivering",
+      "shortness_of_breath",
+      "mottled_skin",
+      "low_blood_pressure",
+      "severe_pain"
+    ],
+    "primary_symptoms": [
+      "high_fever",
+      "rapid_heart_rate",
+      "confusion",
+      "extreme_shivering"
+    ],
+    "recommendation": "Seek immediate emergency medical evaluation. Sepsis requires urgent IV antibiotics and hospital care.",
+    "explanation_template": "Systemic inflammatory features including high fever, tachycardia, altered mental state, and rigors signal potential septic reaction."
+  },
+  "Severe Pneumonia": {
+    "name": "Severe Pneumonia",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "Severe lung infection causing inflammation in air sacs and compromised oxygenation.",
+    "symptoms": [
+      "high_fever",
+      "productive_cough",
+      "shortness_of_breath",
+      "chest_pain_on_breathing",
+      "bluish_lips",
+      "confusion",
+      "chills",
+      "fatigue"
+    ],
+    "primary_symptoms": [
+      "high_fever",
+      "shortness_of_breath",
+      "productive_cough",
+      "bluish_lips"
+    ],
+    "recommendation": "Go to the Emergency Department immediately. Supplemental oxygen and intensive antimicrobial treatment may be needed.",
+    "explanation_template": "Severe respiratory distress, productive cough with high fever and hypoxia symptoms match severe lower respiratory tract infection."
+  },
+  "Pulmonary Embolism": {
+    "name": "Pulmonary Embolism",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "A blockage in one of the pulmonary arteries in your lungs, usually caused by blood clots from legs.",
+    "symptoms": [
+      "sudden_shortness_of_breath",
+      "sharp_chest_pain",
+      "coughing_up_blood",
+      "rapid_heart_rate",
+      "leg_swelling",
+      "dizziness",
+      "sweating"
+    ],
+    "primary_symptoms": [
+      "sudden_shortness_of_breath",
+      "sharp_chest_pain",
+      "coughing_up_blood"
+    ],
+    "recommendation": "Call emergency services immediately. Pulmonary embolism requires prompt anticoagulation and monitoring.",
+    "explanation_template": "Acute onset of sharp chest pain with hemoptysis and dyspnea strongly suggests pulmonary arterial thromboembolism."
+  },
+  "Acute Appendicitis": {
+    "name": "Acute Appendicitis",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "Acute inflammation of the appendix with high risk of rupture and peritonitis.",
+    "symptoms": [
+      "right_lower_quadrant_pain",
+      "periumbilical_pain",
+      "nausea",
+      "vomiting",
+      "low_grade_fever",
+      "loss_of_appetite",
+      "rebound_tenderness"
+    ],
+    "primary_symptoms": [
+      "right_lower_quadrant_pain",
+      "nausea",
+      "rebound_tenderness"
+    ],
+    "recommendation": "Visit an emergency room for surgical evaluation. Do not take laxatives or apply heat pads.",
+    "explanation_template": "Migration of abdominal pain to the right lower quadrant accompanied by fever and rebound tenderness is classic for appendicitis."
+  },
+  "Anaphylaxis": {
+    "name": "Anaphylaxis",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "Severe, potentially life-threatening systemic allergic reaction.",
+    "symptoms": [
+      "difficulty_breathing",
+      "swallowing_difficulty",
+      "hives",
+      "swollen_lips_tongue",
+      "dizziness",
+      "rapid_pulse",
+      "nausea_vomiting"
+    ],
+    "primary_symptoms": [
+      "difficulty_breathing",
+      "swollen_lips_tongue",
+      "hives"
+    ],
+    "recommendation": "Administer epinephrine autoinjector (EpiPen) immediately if available and call 911 right away.",
+    "explanation_template": "Rapid onset multi-organ allergic response involving airway compromise and cutaneous symptoms matches anaphylaxis."
+  },
+  "Meningitis": {
+    "name": "Meningitis",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "Inflammation of the protective membranes covering the brain and spinal cord.",
+    "symptoms": [
+      "stiff_neck",
+      "high_fever",
+      "severe_headache",
+      "sensitivity_to_light",
+      "confusion",
+      "purple_rash",
+      "nausea_vomiting"
+    ],
+    "primary_symptoms": [
+      "stiff_neck",
+      "high_fever",
+      "sensitivity_to_light"
+    ],
+    "recommendation": "Seek emergency medical care immediately. Bacterial meningitis can progress rapidly and requires urgent IV antibiotics.",
+    "explanation_template": "Meningeal triad of fever, severe headache, and neck stiffness combined with photophobia points towards meningitis."
+  },
+  "Diabetic Ketoacidosis (DKA)": {
+    "name": "Diabetic Ketoacidosis (DKA)",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "A serious metabolic complication of diabetes characterized by excessive ketones in the blood.",
+    "symptoms": [
+      "excessive_thirst",
+      "frequent_urination",
+      "fruity_breath",
+      "high_blood_sugar",
+      "confusion",
+      "nausea_vomiting",
+      "rapid_deep_breathing",
+      "abdominal_pain"
+    ],
+    "primary_symptoms": [
+      "fruity_breath",
+      "excessive_thirst",
+      "rapid_deep_breathing"
+    ],
+    "recommendation": "Go to the nearest emergency room immediately for fluid hydration and insulin therapy.",
+    "explanation_template": "Kussmaul breathing, acetone breath odor, hyperosmolar symptoms, and abdominal pain are characteristic of diabetic ketoacidosis."
+  },
+  "Hypertensive Crisis": {
+    "name": "Hypertensive Crisis",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "A severe increase in blood pressure that can lead to stroke or end-organ damage.",
+    "symptoms": [
+      "severe_headache",
+      "chest_pain",
+      "blurred_vision",
+      "shortness_of_breath",
+      "nosebleeds",
+      "severe_anxiety",
+      "confusion"
+    ],
+    "primary_symptoms": [
+      "severe_headache",
+      "blurred_vision",
+      "chest_pain"
+    ],
+    "recommendation": "Seek immediate emergency medical attention to lower blood pressure safely.",
+    "explanation_template": "Extreme blood pressure elevation symptoms including thunderclap headache, visual disturbances, and chest tightness require acute intervention."
+  },
+  "Influenza (Flu)": {
+    "name": "Influenza (Flu)",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Contagious respiratory illness caused by influenza viruses.",
+    "symptoms": [
+      "high_fever",
+      "chills",
+      "body_aches",
+      "fatigue",
+      "dry_cough",
+      "sore_throat",
+      "headache",
+      "nasal_congestion"
+    ],
+    "primary_symptoms": [
+      "high_fever",
+      "body_aches",
+      "dry_cough",
+      "chills"
+    ],
+    "recommendation": "Consult your General Practitioner (GP) within 24-48 hours. Rest, stay hydrated, and consider antiviral medication if advised.",
+    "explanation_template": "Acute onset of high fever, widespread myalgia, fatigue, and non-productive cough strongly fits Influenza infection."
+  },
+  "COVID-19": {
+    "name": "COVID-19",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Viral infection caused by SARS-CoV-2 targeting the respiratory system.",
+    "symptoms": [
+      "fever",
+      "loss_of_taste_smell",
+      "dry_cough",
+      "fatigue",
+      "shortness_of_breath",
+      "sore_throat",
+      "headache",
+      "body_aches"
+    ],
+    "primary_symptoms": [
+      "loss_of_taste_smell",
+      "fever",
+      "dry_cough"
+    ],
+    "recommendation": "Isolate, perform an antigen test, and consult a doctor if symptoms worsen or risk factors exist.",
+    "explanation_template": "Anosmia/ageusia combined with fever and upper respiratory viral symptoms matches COVID-19 profile."
+  },
+  "Migraine": {
+    "name": "Migraine",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Neurological condition causing intense throbbing headache, often on one side.",
+    "symptoms": [
+      "throbbing_headache",
+      "sensitivity_to_light",
+      "sensitivity_to_sound",
+      "nausea",
+      "visual_aura",
+      "dizziness"
+    ],
+    "primary_symptoms": [
+      "throbbing_headache",
+      "sensitivity_to_light",
+      "nausea"
+    ],
+    "recommendation": "Consult a primary care doctor for targeted prescription triptans or preventive migraine therapy.",
+    "explanation_template": "Unilateral pulsatile headache exacerbated by light/sound and accompanied by nausea aligns with migraine."
+  },
+  "Gastritis / Peptic Ulcer": {
+    "name": "Gastritis / Peptic Ulcer",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Inflammation or erosion of the stomach lining causing upper abdominal discomfort.",
+    "symptoms": [
+      "burning_stomach_pain",
+      "bloating",
+      "nausea",
+      "indigestion",
+      "loss_of_appetite",
+      "fullness_after_eating"
+    ],
+    "primary_symptoms": [
+      "burning_stomach_pain",
+      "indigestion",
+      "nausea"
+    ],
+    "recommendation": "Schedule an appointment with a GP or gastroenterologist. Avoid spicy/fatty foods and NSAID painkillers.",
+    "explanation_template": "Epigastric burning discomfort exacerbated or relieved by food indicates gastric mucosal irritation."
+  },
+  "Hypertension (Uncontrolled)": {
+    "name": "Hypertension (Uncontrolled)",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Chronically elevated blood pressure requiring clinical evaluation and blood pressure tracking.",
+    "symptoms": [
+      "morning_headache",
+      "dizziness",
+      "flushed_face",
+      "tinnitus",
+      "fatigue"
+    ],
+    "primary_symptoms": [
+      "morning_headache",
+      "dizziness"
+    ],
+    "recommendation": "Book a GP appointment to check blood pressure readings and adjust antihypertensive therapy.",
+    "explanation_template": "Persistent morning occipital headaches with dizziness in the absence of acute emergency red flags suggest uncontrolled hypertension."
+  },
+  "Urinary Tract Infection (UTI)": {
+    "name": "Urinary Tract Infection (UTI)",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Bacterial infection in any part of the urinary system, commonly bladder and urethra.",
+    "symptoms": [
+      "burning_urination",
+      "frequent_urination",
+      "cloudy_urine",
+      "pelvic_pain",
+      "strong_urine_odor",
+      "low_grade_fever"
+    ],
+    "primary_symptoms": [
+      "burning_urination",
+      "frequent_urination",
+      "cloudy_urine"
+    ],
+    "recommendation": "Consult a physician within 24 hours for urine analysis and targeted antibiotic treatment.",
+    "explanation_template": "Dysuria, urinary frequency, and cloudy urine strongly correlate with lower urinary tract bacterial infection."
+  },
+  "Acute Bronchitis": {
+    "name": "Acute Bronchitis",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Inflammation of the bronchial tubes leading to persistent cough and chest congestion.",
+    "symptoms": [
+      "productive_cough",
+      "chest_tightness",
+      "fatigue",
+      "low_grade_fever",
+      "wheezing",
+      "sore_throat"
+    ],
+    "primary_symptoms": [
+      "productive_cough",
+      "chest_tightness",
+      "wheezing"
+    ],
+    "recommendation": "Consult a doctor if cough lasts > 2 weeks or produces thick purulent sputum. Rest and use bronchodilators as advised.",
+    "explanation_template": "Persistent cough producing mucus accompanied by bronchial wheezing points toward acute tracheobronchitis."
+  },
+  "Sinusitis": {
+    "name": "Sinusitis",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Inflammation of sinus cavities causing facial pressure and purulent nasal discharge.",
+    "symptoms": [
+      "facial_pressure",
+      "nasal_congestion",
+      "green_yellow_mucus",
+      "post_nasal_drip",
+      "headache",
+      "fever",
+      "toothache"
+    ],
+    "primary_symptoms": [
+      "facial_pressure",
+      "nasal_congestion",
+      "green_yellow_mucus"
+    ],
+    "recommendation": "Consult a doctor if symptoms persist over 10 days or worsen after initial improvement.",
+    "explanation_template": "Maxillary/frontal facial pressure with purulent nasal discharge fits acute paranasal sinusitis."
+  },
+  "Strep Throat (Tonsillitis)": {
+    "name": "Strep Throat (Tonsillitis)",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Bacterial pharyngitis caused by Streptococcus pyogenes.",
+    "symptoms": [
+      "severe_sore_throat",
+      "difficulty_swallowing",
+      "swollen_tonsils_white_patches",
+      "fever",
+      "swollen_lymph_nodes",
+      "headache"
+    ],
+    "primary_symptoms": [
+      "severe_sore_throat",
+      "swollen_tonsils_white_patches",
+      "difficulty_swallowing"
+    ],
+    "recommendation": "Visit a doctor for a rapid strep swab test and prescription oral antibiotic regimen.",
+    "explanation_template": "Exudative tonsillitis with tender cervical lymphadenopathy and absence of cough indicates bacterial streptococcal pharyngitis."
+  },
+  "Kidney Stones (Nephrolithiasis)": {
+    "name": "Kidney Stones (Nephrolithiasis)",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Hard mineral deposits formed inside kidneys passing through urinary tract.",
+    "symptoms": [
+      "severe_flank_pain",
+      "pain_radiating_to_groin",
+      "blood_in_urine",
+      "nausea_vomiting",
+      "painful_urination",
+      "restlessness"
+    ],
+    "primary_symptoms": [
+      "severe_flank_pain",
+      "pain_radiating_to_groin",
+      "blood_in_urine"
+    ],
+    "recommendation": "Consult a GP or urologist promptly for pain relief, ultrasound evaluation, and stone management.",
+    "explanation_template": "Colicky flank pain radiating groinward accompanied by hematuria fits renal colic secondary to nephrolithiasis."
+  },
+  "Common Cold": {
+    "name": "Common Cold",
+    "urgency": "Self Care",
+    "urgency_level": "\ud83d\udfe2 Self Care",
+    "description": "Mild viral upper respiratory infection resolving spontaneously.",
+    "symptoms": [
+      "runny_nose",
+      "sneezing",
+      "mild_sore_throat",
+      "nasal_congestion",
+      "mild_cough",
+      "low_grade_fever",
+      "mild_fatigue"
+    ],
+    "primary_symptoms": [
+      "runny_nose",
+      "sneezing",
+      "mild_sore_throat"
+    ],
+    "recommendation": "Rest well, drink warm fluids, use saline nasal sprays, and monitor symptoms. Typically resolves in 7-10 days.",
+    "explanation_template": "Mild upper respiratory symptoms (rhinorrhea, sneezing, scratchy throat) without high fever align with common cold."
+  },
+  "Seasonal Allergies (Allergic Rhinitis)": {
+    "name": "Seasonal Allergies (Allergic Rhinitis)",
+    "urgency": "Self Care",
+    "urgency_level": "\ud83d\udfe2 Self Care",
+    "description": "Allergic response to airborne environmental allergens like pollen, dust mites, or pet dander.",
+    "symptoms": [
+      "sneezing",
+      "watery_itchy_eyes",
+      "clear_runny_nose",
+      "itchy_throat",
+      "nasal_congestion"
+    ],
+    "primary_symptoms": [
+      "watery_itchy_eyes",
+      "sneezing",
+      "clear_runny_nose"
+    ],
+    "recommendation": "Over-the-counter antihistamines, nasal corticosteroid spray, avoiding allergen exposure.",
+    "explanation_template": "Pruritic ocular/nasal symptoms with clear rhinorrhea triggered environmentally indicate allergic rhinitis."
+  },
+  "Tension Headache": {
+    "name": "Tension Headache",
+    "urgency": "Self Care",
+    "urgency_level": "\ud83d\udfe2 Self Care",
+    "description": "Common headache characterized by a dull, aching band-like pain around the head.",
+    "symptoms": [
+      "dull_headache",
+      "tightness_around_forehead",
+      "neck_muscle_tenderness",
+      "mild_fatigue"
+    ],
+    "primary_symptoms": [
+      "dull_headache",
+      "tightness_around_forehead",
+      "neck_muscle_tenderness"
+    ],
+    "recommendation": "Practice stress reduction, stay hydrated, get adequate sleep, and use mild OTC pain relievers if necessary.",
+    "explanation_template": "Bilateral band-like pressure headache without neurological focal signs fits tension-type headache."
+  },
+  "Mild Dehydration / Heat Fatigue": {
+    "name": "Mild Dehydration / Heat Fatigue",
+    "urgency": "Self Care",
+    "urgency_level": "\ud83d\udfe2 Self Care",
+    "description": "Inadequate body fluid balance causing temporary lethargy, dryness, and lightheadedness.",
+    "symptoms": [
+      "dry_mouth",
+      "excessive_thirst",
+      "dark_yellow_urine",
+      "mild_dizziness",
+      "fatigue",
+      "dry_skin"
+    ],
+    "primary_symptoms": [
+      "dry_mouth",
+      "excessive_thirst",
+      "dark_yellow_urine"
+    ],
+    "recommendation": "Rehydrate with water and oral rehydration electrolyte solutions. Rest in a cool place.",
+    "explanation_template": "Thirst, concentrated urine, xerostomia, and mild lethargy reflect low fluid volume."
+  },
+  "Muscle Strain (Myalgia)": {
+    "name": "Muscle Strain (Myalgia)",
+    "urgency": "Self Care",
+    "urgency_level": "\ud83d\udfe2 Self Care",
+    "description": "Stretching or tearing of muscle fibers or tendons following physical activity.",
+    "symptoms": [
+      "localized_muscle_pain",
+      "muscle_stiffness",
+      "swelling",
+      "reduced_range_of_motion",
+      "soreness_after_exercise"
+    ],
+    "primary_symptoms": [
+      "localized_muscle_pain",
+      "muscle_stiffness",
+      "soreness_after_exercise"
+    ],
+    "recommendation": "Follow R.I.C.E. protocol (Rest, Ice, Compression, Elevation). Gentle stretching.",
+    "explanation_template": "Focal tender muscle discomfort following exertion corresponds to minor muscular strain."
+  },
+  "Mild Gastric Indigestion (Dyspepsia)": {
+    "name": "Mild Gastric Indigestion (Dyspepsia)",
+    "urgency": "Self Care",
+    "urgency_level": "\ud83d\udfe2 Self Care",
+    "description": "Transient discomfort in the upper abdomen associated with dietary triggers.",
+    "symptoms": [
+      "bloating",
+      "mild_upper_abdominal_discomfort",
+      "burping",
+      "early_fullness",
+      "mild_heartburn"
+    ],
+    "primary_symptoms": [
+      "bloating",
+      "mild_upper_abdominal_discomfort",
+      "mild_heartburn"
+    ],
+    "recommendation": "Eat smaller meals, avoid reclining immediately after eating, and try OTC antacids if needed.",
+    "explanation_template": "Self-limiting postprandial fullness and mild heartburn fits functional dyspepsia."
+  },
+  "Dengue Fever": {
+    "name": "Dengue Fever",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Medical condition involving dengue fever presenting with characteristic symptoms.",
+    "symptoms": [
+      "high_fever",
+      "severe_behind_eye_pain",
+      "joint_pain",
+      "rash",
+      "nausea",
+      "body_aches"
+    ],
+    "primary_symptoms": [
+      "high_fever",
+      "severe_behind_eye_pain",
+      "joint_pain"
+    ],
+    "recommendation": "Consult a primary care doctor within 24-48 hours.",
+    "explanation_template": "Clinical presentation featuring high fever, severe behind eye pain strongly aligns with Dengue Fever."
+  },
+  "Malaria": {
+    "name": "Malaria",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Medical condition involving malaria presenting with characteristic symptoms.",
+    "symptoms": [
+      "chills_and_rigors",
+      "high_fever",
+      "profuse_sweating",
+      "headache",
+      "nausea",
+      "anemia"
+    ],
+    "primary_symptoms": [
+      "chills_and_rigors",
+      "high_fever",
+      "profuse_sweating"
+    ],
+    "recommendation": "Consult a primary care doctor within 24-48 hours.",
+    "explanation_template": "Clinical presentation featuring chills and rigors, high fever strongly aligns with Malaria."
+  },
+  "Gout Flare": {
+    "name": "Gout Flare",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Medical condition involving gout flare presenting with characteristic symptoms.",
+    "symptoms": [
+      "severe_joint_pain_big_toe",
+      "swollen_red_joint",
+      "warmth_over_joint",
+      "fever"
+    ],
+    "primary_symptoms": [
+      "severe_joint_pain_big_toe",
+      "swollen_red_joint"
+    ],
+    "recommendation": "Consult a primary care doctor within 24-48 hours.",
+    "explanation_template": "Clinical presentation featuring severe joint pain big toe, swollen red joint strongly aligns with Gout Flare."
+  },
+  "Hypothyroidism": {
+    "name": "Hypothyroidism",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Medical condition involving hypothyroidism presenting with characteristic symptoms.",
+    "symptoms": [
+      "unexplained_weight_gain",
+      "fatigue",
+      "cold_intolerance",
+      "dry_skin",
+      "constipation"
+    ],
+    "primary_symptoms": [
+      "unexplained_weight_gain",
+      "cold_intolerance",
+      "fatigue"
+    ],
+    "recommendation": "Consult a primary care doctor within 24-48 hours.",
+    "explanation_template": "Clinical presentation featuring unexplained weight gain, cold intolerance strongly aligns with Hypothyroidism."
+  },
+  "Otitis Media (Ear Infection)": {
+    "name": "Otitis Media (Ear Infection)",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Medical condition involving otitis media (ear infection) presenting with characteristic symptoms.",
+    "symptoms": [
+      "ear_pain",
+      "impaired_hearing",
+      "fever",
+      "fluid_drainage_from_ear"
+    ],
+    "primary_symptoms": [
+      "ear_pain",
+      "fever"
+    ],
+    "recommendation": "Consult a primary care doctor within 24-48 hours.",
+    "explanation_template": "Clinical presentation featuring ear pain, fever strongly aligns with Otitis Media (Ear Infection)."
+  },
+  "Asthma Exacerbation": {
+    "name": "Asthma Exacerbation",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Medical condition involving asthma exacerbation presenting with characteristic symptoms.",
+    "symptoms": [
+      "wheezing",
+      "shortness_of_breath",
+      "chest_tightness",
+      "coughing_at_night"
+    ],
+    "primary_symptoms": [
+      "wheezing",
+      "chest_tightness",
+      "shortness_of_breath"
+    ],
+    "recommendation": "Consult a primary care doctor within 24-48 hours.",
+    "explanation_template": "Clinical presentation featuring wheezing, chest tightness strongly aligns with Asthma Exacerbation."
+  },
+  "Gallstones (Cholecystitis)": {
+    "name": "Gallstones (Cholecystitis)",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Medical condition involving gallstones (cholecystitis) presenting with characteristic symptoms.",
+    "symptoms": [
+      "right_upper_quadrant_pain",
+      "pain_after_fatty_meals",
+      "nausea",
+      "fever",
+      "jaundice"
+    ],
+    "primary_symptoms": [
+      "right_upper_quadrant_pain",
+      "pain_after_fatty_meals"
+    ],
+    "recommendation": "Consult a primary care doctor within 24-48 hours.",
+    "explanation_template": "Clinical presentation featuring right upper quadrant pain, pain after fatty meals strongly aligns with Gallstones (Cholecystitis)."
+  },
+  "Depression / Anxiety Disorder": {
+    "name": "Depression / Anxiety Disorder",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Medical condition involving depression / anxiety disorder presenting with characteristic symptoms.",
+    "symptoms": [
+      "persistent_sadness",
+      "anxiety",
+      "sleep_disturbances",
+      "loss_of_interest",
+      "fatigue"
+    ],
+    "primary_symptoms": [
+      "persistent_sadness",
+      "anxiety",
+      "loss_of_interest"
+    ],
+    "recommendation": "Consult a primary care doctor within 24-48 hours.",
+    "explanation_template": "Clinical presentation featuring persistent sadness, anxiety strongly aligns with Depression / Anxiety Disorder."
+  },
+  "Shingles (Herpes Zoster)": {
+    "name": "Shingles (Herpes Zoster)",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Medical condition involving shingles (herpes zoster) presenting with characteristic symptoms.",
+    "symptoms": [
+      "painful_blister_rash_one_side",
+      "burning_skin_pain",
+      "tingling",
+      "fever"
+    ],
+    "primary_symptoms": [
+      "painful_blister_rash_one_side",
+      "burning_skin_pain"
+    ],
+    "recommendation": "Consult a primary care doctor within 24-48 hours.",
+    "explanation_template": "Clinical presentation featuring painful blister rash one side, burning skin pain strongly aligns with Shingles (Herpes Zoster)."
+  },
+  "Iron Deficiency Anemia": {
+    "name": "Iron Deficiency Anemia",
+    "urgency": "Consult GP",
+    "urgency_level": "\ud83d\udfe1 Consult GP",
+    "description": "Medical condition involving iron deficiency anemia presenting with characteristic symptoms.",
+    "symptoms": [
+      "extreme_fatigue",
+      "pale_skin",
+      "brittle_nails",
+      "shortness_of_breath_on_exertion",
+      "dizziness"
+    ],
+    "primary_symptoms": [
+      "extreme_fatigue",
+      "pale_skin",
+      "dizziness"
+    ],
+    "recommendation": "Consult a primary care doctor within 24-48 hours.",
+    "explanation_template": "Clinical presentation featuring extreme fatigue, pale skin strongly aligns with Iron Deficiency Anemia."
+  },
+  "Aortic Dissection": {
+    "name": "Aortic Dissection",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "Medical condition involving aortic dissection presenting with characteristic symptoms.",
+    "symptoms": [
+      "sudden_tearing_chest_pain",
+      "pain_radiating_to_back",
+      "pulse_difference_between_arms",
+      "fainting"
+    ],
+    "primary_symptoms": [
+      "sudden_tearing_chest_pain",
+      "pain_radiating_to_back"
+    ],
+    "recommendation": "Seek urgent emergency medical room attention immediately.",
+    "explanation_template": "Clinical presentation featuring sudden tearing chest pain, pain radiating to back strongly aligns with Aortic Dissection."
+  },
+  "Acute Pancreatitis": {
+    "name": "Acute Pancreatitis",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "Medical condition involving acute pancreatitis presenting with characteristic symptoms.",
+    "symptoms": [
+      "severe_upper_abdominal_pain",
+      "pain_radiating_to_back",
+      "nausea_vomiting",
+      "fever",
+      "rapid_pulse"
+    ],
+    "primary_symptoms": [
+      "severe_upper_abdominal_pain",
+      "pain_radiating_to_back",
+      "nausea_vomiting"
+    ],
+    "recommendation": "Seek urgent emergency medical room attention immediately.",
+    "explanation_template": "Clinical presentation featuring severe upper abdominal pain, pain radiating to back strongly aligns with Acute Pancreatitis."
+  },
+  "Tension Pneumothorax": {
+    "name": "Tension Pneumothorax",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "Medical condition involving tension pneumothorax presenting with characteristic symptoms.",
+    "symptoms": [
+      "sudden_sharp_chest_pain",
+      "severe_shortness_of_breath",
+      "tracheal_deviation",
+      "low_blood_pressure"
+    ],
+    "primary_symptoms": [
+      "sudden_sharp_chest_pain",
+      "severe_shortness_of_breath"
+    ],
+    "recommendation": "Seek urgent emergency medical room attention immediately.",
+    "explanation_template": "Clinical presentation featuring sudden sharp chest pain, severe shortness of breath strongly aligns with Tension Pneumothorax."
+  },
+  "Intracranial Hemorrhage": {
+    "name": "Intracranial Hemorrhage",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "Medical condition involving intracranial hemorrhage presenting with characteristic symptoms.",
+    "symptoms": [
+      "sudden_worst_headache_of_life",
+      "vomiting",
+      "seizures",
+      "loss_of_consciousness",
+      "stiff_neck"
+    ],
+    "primary_symptoms": [
+      "sudden_worst_headache_of_life",
+      "loss_of_consciousness"
+    ],
+    "recommendation": "Seek urgent emergency medical room attention immediately.",
+    "explanation_template": "Clinical presentation featuring sudden worst headache of life, loss of consciousness strongly aligns with Intracranial Hemorrhage."
+  },
+  "Carbon Monoxide Poisoning": {
+    "name": "Carbon Monoxide Poisoning",
+    "urgency": "Emergency",
+    "urgency_level": "\ud83d\udd34 Emergency",
+    "description": "Medical condition involving carbon monoxide poisoning presenting with characteristic symptoms.",
+    "symptoms": [
+      "dizziness",
+      "confusion",
+      "headache",
+      "shortness_of_breath",
+      "nausea",
+      "loss_of_consciousness"
+    ],
+    "primary_symptoms": [
+      "dizziness",
+      "confusion",
+      "loss_of_consciousness"
+    ],
+    "recommendation": "Seek urgent emergency medical room attention immediately.",
+    "explanation_template": "Clinical presentation featuring dizziness, confusion strongly aligns with Carbon Monoxide Poisoning."
+  },
+  "Contact Dermatitis": {
+    "name": "Contact Dermatitis",
+    "urgency": "Self Care",
+    "urgency_level": "\ud83d\udfe2 Self Care",
+    "description": "Medical condition involving contact dermatitis presenting with characteristic symptoms.",
+    "symptoms": [
+      "skin_redness",
+      "itchy_rash",
+      "localized_blisters",
+      "dry_flaky_skin"
+    ],
+    "primary_symptoms": [
+      "skin_redness",
+      "itchy_rash"
+    ],
+    "recommendation": "Rest, monitor symptoms, and use over-the-counter supportive care.",
+    "explanation_template": "Clinical presentation featuring skin redness, itchy rash strongly aligns with Contact Dermatitis."
+  },
+  "Minor Motion Sickness": {
+    "name": "Minor Motion Sickness",
+    "urgency": "Self Care",
+    "urgency_level": "\ud83d\udfe2 Self Care",
+    "description": "Medical condition involving minor motion sickness presenting with characteristic symptoms.",
+    "symptoms": [
+      "nausea",
+      "dizziness_in_vehicle",
+      "cold_sweats",
+      "pale_skin"
+    ],
+    "primary_symptoms": [
+      "dizziness_in_vehicle",
+      "nausea"
+    ],
+    "recommendation": "Rest, monitor symptoms, and use over-the-counter supportive care.",
+    "explanation_template": "Clinical presentation featuring dizziness in vehicle, nausea strongly aligns with Minor Motion Sickness."
+  },
+  "Mild Sunburn": {
+    "name": "Mild Sunburn",
+    "urgency": "Self Care",
+    "urgency_level": "\ud83d\udfe2 Self Care",
+    "description": "Medical condition involving mild sunburn presenting with characteristic symptoms.",
+    "symptoms": [
+      "red_painful_skin_after_sun",
+      "warm_skin",
+      "mild_peeling"
+    ],
+    "primary_symptoms": [
+      "red_painful_skin_after_sun",
+      "warm_skin"
+    ],
+    "recommendation": "Rest, monitor symptoms, and use over-the-counter supportive care.",
+    "explanation_template": "Clinical presentation featuring red painful skin after sun, warm skin strongly aligns with Mild Sunburn."
+  },
+  "Minor Food Intolerance": {
+    "name": "Minor Food Intolerance",
+    "urgency": "Self Care",
+    "urgency_level": "\ud83d\udfe2 Self Care",
+    "description": "Medical condition involving minor food intolerance presenting with characteristic symptoms.",
+    "symptoms": [
+      "mild_bloating_after_dairy",
+      "gas",
+      "mild_diarrhea"
+    ],
+    "primary_symptoms": [
+      "mild_bloating_after_dairy",
+      "gas"
+    ],
+    "recommendation": "Rest, monitor symptoms, and use over-the-counter supportive care.",
+    "explanation_template": "Clinical presentation featuring mild bloating after dairy, gas strongly aligns with Minor Food Intolerance."
+  },
+  "Mild Eye Strain": {
+    "name": "Mild Eye Strain",
+    "urgency": "Self Care",
+    "urgency_level": "\ud83d\udfe2 Self Care",
+    "description": "Medical condition involving mild eye strain presenting with characteristic symptoms.",
+    "symptoms": [
+      "dry_eyes",
+      "blurry_vision_after_screens",
+      "mild_headache"
+    ],
+    "primary_symptoms": [
+      "dry_eyes",
+      "blurry_vision_after_screens"
+    ],
+    "recommendation": "Rest, monitor symptoms, and use over-the-counter supportive care.",
+    "explanation_template": "Clinical presentation featuring dry eyes, blurry vision after screens strongly aligns with Mild Eye Strain."
+  }
+}

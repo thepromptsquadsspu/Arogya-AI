@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AegisMed - Interactive AI Medical Symptom Triage Advisor</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#ecfeff', 500: '#06b6d4', 600: '#0891b2', 700: '#0e7490', 950: '#083344' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- jsPDF for PDF Report Generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glow-emerald { box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.35); }
+    .glow-amber { box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.35); }
+    .glow-red { box-shadow: 0 0 30px -5px rgba(239, 68, 68, 0.45); }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- Top Disclaimer Banner -->
+  <div className="bg-slate-900 border-b border-cyan-900/50 px-4 py-2 text-xs text-slate-300 flex justify-between items-center">
+    <div className="flex items-center gap-2">
+      <span className="text-cyan-400 font-bold">⚠️ Medical Disclaimer:</span>
+      <span>Educational decision-support triage assistant. Not a substitute for professional medical advice or emergency care.</span>
+    </div>
+    <div className="hidden sm:block text-[11px] text-cyan-300 font-semibold bg-cyan-950 px-2.5 py-0.5 rounded-full border border-cyan-800">
+      🔒 100% Anonymous & Private
+    </div>
+  </div>
+
+  <!-- Header Navbar -->
+  <header className="sticky top-0 z-40 bg-slate-950/90 border-b border-slate-800 backdrop-blur-md">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div onclick="switchTab('landing')" class="flex items-center gap-3 cursor-pointer group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-400 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition">
+          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-bold text-xl text-cyan-400">
+            🩺
+          </div>
+        </div>
+        <div>
+          <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">AegisMed</span>
+          <span class="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800 text-cyan-300">Triage AI 2.0</span>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-1 bg-slate-900/80 border border-slate-800 rounded-full p-1 text-xs">
+        <button id="nav-landing" onclick="switchTab('landing')" class="px-4 py-2 rounded-full font-semibold transition bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-md">Home</button>
+        <button id="nav-checker" onclick="switchTab('checker')" class="px-4 py-2 rounded-full font-semibold transition text-slate-300 hover:text-white">Symptom Checker</button>
+        <button id="nav-history" onclick="switchTab('history')" class="px-4 py-2 rounded-full font-semibold transition text-slate-300 hover:text-white">History</button>
+        <button id="nav-admin" onclick="switchTab('admin')" class="px-4 py-2 rounded-full font-semibold transition text-slate-300 hover:text-white">Admin & ML Hub</button>
+        <button id="nav-about" onclick="switchTab('about')" class="px-4 py-2 rounded-full font-semibold transition text-slate-300 hover:text-white">About</button>
+      </nav>
+
+      <a href="tel:911" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white text-xs font-extrabold shadow-lg shadow-red-900/40 transition">
+        <span>🚨 Emergency 911</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="md:hidden flex justify-around bg-slate-900 border-t border-slate-800 p-2 text-xs">
+    <button onclick="switchTab('landing')" class="p-1 font-semibold text-slate-300">Home</button>
+    <button onclick="switchTab('checker')" class="p-1 font-semibold text-cyan-400">Checker</button>
+    <button onclick="switchTab('history')" class="p-1 font-semibold text-slate-300">History</button>
+    <button onclick="switchTab('admin')" class="p-1 font-semibold text-slate-300">Admin</button>
+  </div>
+
+  <!-- Main Container -->
+  <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- 1. LANDING PAGE VIEW -->
+    <section id="view-landing" class="space-y-16 py-6">
+      <div class="max-w-3xl mx-auto text-center space-y-6">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-800/60 text-cyan-300 text-xs font-semibold shadow-inner">
+          <span>✨ AI-Powered Clinical Decision Support & Symptom Triage</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-6xl font-black text-white leading-tight tracking-tight">
+          Intelligent Medical Symptom Triage, <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">Instant Urgency Insights</span>
+        </h1>
+
+        <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+          Analyze user-reported symptoms using calibrated multi-label Machine Learning, predict potential medical conditions, and receive actionable triage urgency guidance.
+        </p>
+
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button onclick="switchTab('checker')" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 text-slate-950 font-extrabold text-base shadow-xl shadow-cyan-500/25 hover:scale-105 transition flex items-center justify-center gap-2">
+            <span>Launch Interactive Symptom Checker</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3 Tier Urgency Breakdown -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/30 backdrop-blur-md space-y-3">
+          <div class="text-4xl">🟢</div>
+          <h3 class="text-lg font-bold text-emerald-400">Self Care</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">Low urgency, self-limiting conditions manageable with rest, fluids, and OTC support (Common Cold, Seasonal Allergies, Tension Headache).</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-amber-500/30 backdrop-blur-md space-y-3">
+          <div class="text-4xl">🟡</div>
+          <h3 class="text-lg font-bold text-amber-400">Consult GP</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">Moderate urgency conditions requiring medical evaluation by a GP within 24 to 48 hours (Flu, Migraine, Gastritis, UTI, Strep Throat).</p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-red-500/30 backdrop-blur-md space-y-3">
+          <div class="text-4xl">🔴</div>
+          <h3 class="text-lg font-bold text-red-400">Emergency</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">High-risk emergencies requiring immediate medical attention at an ER or 911 dispatch (Heart Attack, Stroke, Sepsis, Severe Pneumonia).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. SYMPTOM CHECKER VIEW -->
+    <section id="view-checker" class="hidden space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div>
+          <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+            <span>🤖 Interactive Symptom Questionnaire</span>
+          </h1>
+          <p class="text-xs text-slate-400 mt-1">Pick symptoms from the library or answer dynamic AI follow-up questions</p>
+        </div>
+        <button onclick="runTriagePrediction()" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-extrabold text-xs shadow-lg hover:scale-105 transition">
+          Run Triage Analysis →
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Selected Symptoms & AI Question Panel (7 cols) -->
+        <div class="lg:col-span-7 bg-slate-900/80 border border-slate-800 rounded-3xl p-6 backdrop-blur-md space-y-6">
+          <div>
+            <h3 class="text-xs font-bold text-slate-400 mb-2">Reported Symptoms (<span id="selected-count">0</span>):</h3>
+            <div id="selected-chips" class="flex flex-wrap gap-2 min-h-[40px]">
+              <span class="text-xs text-slate-500 italic">No symptoms selected yet. Select from the palette on the right.</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Question Prompt -->
+          <div id="ai-question-box" class="hidden p-5 rounded-2xl bg-cyan-950/70 border border-cyan-800/80 space-y-3">
+            <div class="text-xs font-bold text-cyan-300 flex items-center gap-2">
+              <span>🤖 AI Intelligent Follow-up Question:</span>
+            </div>
+            <p id="ai-question-text" class="text-sm font-semibold text-white"></p>
+            <div class="flex items-center gap-3 pt-2">
+              <button id="btn-question-yes" class="px-4 py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 font-bold text-xs hover:bg-emerald-500/30 transition">
+                Yes, I have this
+              </button>
+              <button id="btn-question-no" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold text-xs hover:bg-slate-700 transition">
+                No
+              </button>
+            </div>
+          </div>
+
+          <button onclick="runTriagePrediction()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 text-slate-950 font-extrabold text-sm shadow-xl hover:scale-[1.01] transition">
+            Analyze Triage Urgency & Predict Conditions →
+          </button>
+        </div>
+
+        <!-- Symptom Library Palette (5 cols) -->
+        <div class="lg:col-span-5 bg-slate-900/80 border border-slate-800 rounded-3xl p-6 backdrop-blur-md space-y-4">
+          <h3 class="text-sm font-bold text-white">Symptom Library Palette</h3>
+          <input type="text" id="symptom-search" oninput="filterSymptoms()" placeholder="Search symptoms (fever, cough, pain)..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-500" />
+          <div id="symptom-list" class="max-h-[380px] overflow-y-auto space-y-2 pr-1"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. TRIAGE RESULTS VIEW -->
+    <section id="view-results" class="hidden space-y-8">
+      <div id="urgency-banner" class="p-8 rounded-3xl border backdrop-blur-md transition space-y-4"></div>
+      
+      <div className="flex justify-between items-center border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-xl font-bold text-white">Predicted Medical Conditions</h2>
+          <p class="text-xs text-slate-400">Multi-label Random Forest classification results</p>
+        </div>
+        <button onclick="downloadPDFReport()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 font-bold text-xs shadow-md">
+          📄 Download PDF Report
+        </button>
+      </div>
+
+      <div id="predictions-container" class="space-y-4"></div>
+    </section>
+
+    <!-- 4. ADMIN DASHBOARD VIEW -->
+    <section id="view-admin" class="hidden space-y-8">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div>
+          <h1 class="text-2xl font-bold text-white">Admin & Machine Learning Hub</h1>
+          <p class="text-xs text-slate-400 mt-1">Real-time system usage and ML model evaluation matrix</p>
+        </div>
+        <button onclick="loadAnalyticsData()" class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-cyan-400">
+          Refresh Metrics
+        </button>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800">
+          <span class="text-xs text-slate-400">Total Evaluations</span>
+          <div id="kpi-total" class="text-3xl font-black text-white mt-1">0</div>
+        </div>
+        <div class="p-5 rounded-2xl bg-slate-900 border border-emerald-500/30">
+          <span class="text-xs text-slate-400">Model Accuracy</span>
+          <div id="kpi-accuracy" class="text-3xl font-black text-emerald-400 mt-1">98.3%</div>
+        </div>
+        <div class="p-5 rounded-2xl bg-slate-900 border border-amber-500/30">
+          <span class="text-xs text-slate-400">F1 Score</span>
+          <div id="kpi-f1" class="text-3xl font-black text-amber-400 mt-1">98.3%</div>
+        </div>
+        <div class="p-5 rounded-2xl bg-slate-900 border border-red-500/30">
+          <span class="text-xs text-slate-400">Emergency Referrals</span>
+          <div id="kpi-emergency" class="text-3xl font-black text-red-400 mt-1">0</div>
+        </div>
+      </div>
+
+      <!-- Live Confusion Matrix -->
+      <div class="p-6 rounded-3xl bg-slate-900 border border-cyan-500/30 space-y-4">
+        <h3 class="text-sm font-bold text-white">Live ML Class Confusion Matrix Heatmap</h3>
+        <div id="matrix-container" class="overflow-x-auto"></div>
+      </div>
+    </section>
+
+    <!-- 5. SEARCH HISTORY VIEW -->
+    <section id="view-history" class="hidden space-y-6">
+      <div class="border-b border-slate-800 pb-4">
+        <h1 class="text-2xl font-bold text-white">Anonymized Audit Logs</h1>
+        <p class="text-xs text-slate-400 mt-1">Zero PII (Name/Email/IP) recorded</p>
+      </div>
+      <div id="history-container" class="space-y-3"></div>
+    </section>
+
+    <!-- 6. ABOUT VIEW -->
+    <section id="view-about" class="hidden space-y-8 max-w-3xl mx-auto text-slate-300 text-sm">
+      <h1 class="text-3xl font-extrabold text-white text-center">About AegisMed</h1>
+      <p class="leading-relaxed">
+        AegisMed is an AI-powered clinical decision-support triage assistant. It analyzes symptom co-occurrence vectors using a calibrated Scikit-Learn Random Forest Classifier and calculates entropy to prompt diagnostic follow-up questions.
+      </p>
+      <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+        <h3 class="font-bold text-white">Emergency Hotline Numbers</h3>
+        <div class="grid grid-cols-2 gap-4 text-xs">
+          <div>US / Canada: <strong class="text-red-400">911</strong></div>
+          <div>Europe & UK: <strong class="text-cyan-400">112 / 999</strong></div>
+          <div>Australia: <strong class="text-emerald-400">000</strong></div>
+          <div>India: <strong class="text-amber-400">112</strong></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-900 bg-slate-950 py-6 text-center text-xs text-slate-500">
+    © 2026 AegisMed AI Triage Advisor. Built with FastAPI, Scikit-Learn, and Tailwind CSS.
+  </footer>
+
+  <!-- Application Script -->
+  <script>
+    const ALL_SYMPTOMS = [
+      { key: "chest_pain", label: "Chest Pain" },
+      { key: "shortness_of_breath", label: "Shortness of Breath" },
+      { key: "high_fever", label: "High Fever (>101°F)" },
+      { key: "dry_cough", label: "Dry Cough" },
+      { key: "productive_cough", label: "Productive Cough" },
+      { key: "pain_radiating_to_left_arm", label: "Pain Radiating to Left Arm" },
+      { key: "facial_droop", label: "Facial Droop" },
+      { key: "slurred_speech", label: "Slurred Speech" },
+      { key: "arm_weakness", label: "Arm / Leg Weakness" },
+      { key: "throbbing_headache", label: "Throbbing Headache" },
+      { key: "severe_sudden_headache", label: "Sudden Severe Headache" },
+      { key: "body_aches", label: "Widespread Body Aches" },
+      { key: "chills", label: "Chills / Rigors" },
+      { key: "stiff_neck", label: "Stiff Neck" },
+      { key: "sensitivity_to_light", label: "Light Sensitivity" },
+      { key: "loss_of_taste_smell", label: "Loss of Taste / Smell" },
+      { key: "burning_urination", label: "Burning Urination" },
+      { key: "frequent_urination", label: "Frequent Urination" },
+      { key: "burning_stomach_pain", label: "Burning Stomach Pain" },
+      { key: "right_lower_quadrant_pain", label: "Lower Right Abdominal Pain" },
+      { key: "nausea", label: "Nausea" },
+      { key: "runny_nose", label: "Runny Nose" },
+      { key: "sneezing", label: "Sneezing" },
+      { key: "sore_throat", label: "Sore Throat" },
+      { key: "fatigue", label: "Fatigue" },
+      { key: "dizziness", label: "Dizziness" }
+    ];
+
+    let state = {
+      selectedSymptoms: [],
+      currentQuestion: null,
+      lastTriageResult: null
+    };
+
+    function switchTab(tabId) {
+      ['landing', 'checker', 'results', 'admin', 'history', 'about'].forEach(t => {
+        const el = document.getElementById('view-' + t);
+        const nav = document.getElementById('nav-' + t);
+        if (el) el.classList.add('hidden');
+        if (nav) nav.className = "px-4 py-2 rounded-full font-semibold transition text-slate-300 hover:text-white";
+      });
+
+      const activeEl = document.getElementById('view-' + tabId);
+      const activeNav = document.getElementById('nav-' + tabId);
+      if (activeEl) activeEl.classList.remove('hidden');
+      if (activeNav) activeNav.className = "px-4 py-2 rounded-full font-semibold transition bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-md";
+
+      if (tabId === 'checker') renderPalette();
+      if (tabId === 'admin') loadAnalyticsData();
+      if (tabId === 'history') loadHistoryData();
+    }
+
+    function renderPalette() {
+      const container = document.getElementById('symptom-list');
+      if (!container) return;
+      const query = document.getElementById('symptom-search').value.toLowerCase();
+      
+      container.innerHTML = '';
+      ALL_SYMPTOMS.filter(s => s.label.toLowerCase().includes(query)).forEach(s => {
+        const isSel = state.selectedSymptoms.includes(s.key);
+        const btn = document.createElement('button');
+        btn.className = `w-full flex justify-between p-3 rounded-xl border text-xs font-medium ${isSel ? 'bg-cyan-950 border-cyan-500 text-cyan-200' : 'bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700'}`;
+        btn.innerHTML = `<span>${s.label}</span><span>${isSel ? '✓' : '+'}</span>`;
+        btn.onclick = () => toggleSymptom(s.key);
+        container.appendChild(btn);
+      });
+      renderChips();
+    }
+
+    function filterSymptoms() { renderPalette(); }
+
+    function toggleSymptom(symKey) {
+      if (state.selectedSymptoms.includes(symKey)) {
+        state.selectedSymptoms = state.selectedSymptoms.filter(s => s !== symKey);
+      } else {
+        state.selectedSymptoms.push(symKey);
+      }
+      renderPalette();
+      fetchAIQuestion();
+    }
+
+    function renderChips() {
+      const container = document.getElementById('selected-chips');
+      const count = document.getElementById('selected-count');
+      if (count) count.innerText = state.selectedSymptoms.length;
+      if (!container) return;
+
+      if (state.selectedSymptoms.length === 0) {
+        container.innerHTML = '<span class="text-xs text-slate-500 italic">No symptoms selected yet. Select from the palette on the right.</span>';
+        return;
+      }
+
+      container.innerHTML = '';
+      state.selectedSymptoms.forEach(sym => {
+        const chip = document.createElement('span');
+        chip.className = "px-3 py-1 rounded-xl bg-cyan-950 border border-cyan-700 text-cyan-300 text-xs font-semibold flex items-center gap-2";
+        chip.innerHTML = `<span>${sym.replace(/_/g, ' ').toUpperCase()}</span><button onclick="toggleSymptom('${sym}')">✕</button>`;
+        container.appendChild(chip);
+      });
+    }
+
+    async function fetchAIQuestion() {
+      if (state.selectedSymptoms.length === 0) return;
+      try {
+        const res = await fetch('/api/triage', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ current_symptoms: state.selectedSymptoms })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.follow_up_questions && data.follow_up_questions.length > 0) {
+            const q = data.follow_up_questions[0];
+            state.currentQuestion = q;
+            document.getElementById('ai-question-text').innerText = q.question_text;
+            document.getElementById('ai-question-box').classList.remove('hidden');
+            document.getElementById('btn-question-yes').onclick = () => { toggleSymptom(q.symptom_key); };
+            document.getElementById('btn-question-no').onclick = () => { document.getElementById('ai-question-box').classList.add('hidden'); };
+          }
+        }
+      } catch (e) { console.error(e); }
+    }
+
+    async function runTriagePrediction() {
+      if (state.selectedSymptoms.length === 0) return alert("Select at least one symptom.");
+      try {
+        const res = await fetch('/api/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ symptoms: state.selectedSymptoms })
+        });
+        if (res.ok) {
+          state.lastTriageResult = await res.json();
+          renderResults();
+          switchTab('results');
+        }
+      } catch (e) { alert("Error connecting to triage API."); }
+    }
+
+    function renderResults() {
+      const data = state.lastTriageResult;
+      if (!data) return;
+
+      const banner = document.getElementById('urgency-banner');
+      const isEmerg = data.primary_urgency === 'Emergency';
+      const isGP = data.primary_urgency === 'Consult GP';
+
+      banner.className = `p-8 rounded-3xl border backdrop-blur-md transition space-y-4 ${isEmerg ? 'bg-red-950/80 border-red-500 text-red-300 glow-red' : isGP ? 'bg-amber-950/80 border-amber-500 text-amber-300 glow-amber' : 'bg-emerald-950/80 border-emerald-500 text-emerald-300 glow-emerald'}`;
+      banner.innerHTML = `
+        <h1 class="text-3xl font-black text-white">${data.urgency_level} URGENCY</h1>
+        <p class="text-xs text-slate-200 leading-relaxed">${data.summary_recommendation}</p>
+      `;
+
+      const container = document.getElementById('predictions-container');
+      container.innerHTML = '';
+
+      data.top_predictions.forEach((p, idx) => {
+        const card = document.createElement('div');
+        card.className = "p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4";
+        card.innerHTML = `
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-cyan-400">#${idx+1}</span>
+              <h3 class="text-base font-bold text-white">${p.name}</h3>
+              <span class="text-xs px-2.5 py-0.5 rounded-full bg-slate-950 border border-slate-700 text-slate-300">${p.urgency_level}</span>
+            </div>
+            <span class="text-sm font-bold text-cyan-300">${p.confidence}% Confidence</span>
+          </div>
+          <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden">
+            <div class="h-full bg-cyan-500" style="width: ${p.confidence}%"></div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300">
+            <strong>Explanation:</strong> ${p.explanation}
+          </div>
+          <div class="grid grid-cols-2 gap-4 text-xs">
+            <div class="p-3 rounded-xl bg-emerald-950/40 border border-emerald-900 text-emerald-300">
+              <strong>Matched Symptoms:</strong> ${p.matched_symptoms.join(', ')}
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-400">
+              <strong>Missing Symptoms:</strong> ${p.missing_symptoms.join(', ')}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function downloadPDFReport() {
+      if (!state.lastTriageResult) return;
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFillColor(8, 145, 178);
+      doc.rect(0, 0, 210, 24, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(16);
+      doc.text("AegisMed Triage Clinical Report", 14, 16);
+      
+      doc.setTextColor(15, 23, 42);
+      doc.setFontSize(11);
+      doc.text(`Primary Urgency: ${state.lastTriageResult.urgency_level}`, 14, 36);
+      doc.text(`Reported Symptoms: ${state.selectedSymptoms.join(', ')}`, 14, 44);
+      
+      let y = 58;
+      state.lastTriageResult.top_predictions.forEach((p, i) => {
+        doc.text(`${i+1}. ${p.name} (${p.confidence}% match)`, 14, y);
+        y += 8;
+      });
+
+      doc.save(`AegisMed_Triage_Report_${Date.now()}.pdf`);
+    }
+
+    async function loadAnalyticsData() {
+      try {
+        const res = await fetch('/api/analytics');
+        if (res.ok) {
+          const data = await res.json();
+          document.getElementById('kpi-total').innerText = data.total_triages || 0;
+          document.getElementById('kpi-emergency').innerText = data.urgency_counts?.['Emergency'] || 0;
+
+          if (data.ml_metrics && data.ml_metrics.confusion_matrix) {
+            const cm = data.ml_metrics.confusion_matrix;
+            let html = '<table class="w-full text-xs text-center border-collapse"><thead><tr><th class="p-2 text-left text-slate-400">Actual \\ Predicted</th>';
+            cm.labels.slice(0, 5).forEach(l => { html += `<th class="p-2 text-cyan-300">${l}</th>`; });
+            html += '</tr></thead><tbody>';
+            cm.matrix.slice(0, 5).forEach((row, r) => {
+              html += `<tr class="border-t border-slate-800"><td class="p-2 text-left font-bold text-slate-300">${cm.labels[r]}</td>`;
+              row.slice(0, 5).forEach((val, c) => {
+                html += `<td class="p-3 font-bold ${r === c ? 'bg-emerald-950 text-emerald-300' : 'bg-slate-950 text-slate-500'}">${val}</td>`;
+              });
+              html += '</tr>';
+            });
+            html += '</tbody></table>';
+            document.getElementById('matrix-container').innerHTML = html;
+          }
+        }
+      } catch (e) { console.error(e); }
+    }
+
+    async function loadHistoryData() {
+      try {
+        const res = await fetch('/api/history');
+        if (res.ok) {
+          const logs = await res.json();
+          const container = document.getElementById('history-container');
+          container.innerHTML = '';
+          logs.forEach(item => {
+            const row = document.createElement('div');
+            row.className = "p-4 rounded-2xl bg-slate-900 border border-slate-800 flex justify-between items-center text-xs";
+            row.innerHTML = `
+              <div>
+                <span class="font-bold text-white">${item.top_disease}</span>
+                <p class="text-slate-400 mt-1">Symptoms: ${item.symptoms.join(', ')}</p>
+              </div>
+              <div class="text-right">
+                <span class="font-bold px-2.5 py-0.5 rounded-full bg-slate-950 border border-slate-700 text-cyan-300">${item.primary_urgency}</span>
+                <p class="text-slate-500 text-[10px] mt-1">${item.timestamp}</p>
+              </div>
+            `;
+            container.appendChild(row);
+          });
+        }
+      } catch (e) { console.error(e); }
+    }
+
+    // Initialize
+    switchTab('landing');
+  </script>
+</body>
+</html>

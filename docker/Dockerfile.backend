@@ -1,0 +1,18 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY ml/ ./ml/
+COPY datasets/ ./datasets/
+COPY models/ ./models/
+COPY backend/ ./backend/
+
+# Train model on build
+RUN python3 ml/dataset_generator.py && python3 ml/train_model.py
+
+EXPOSE 8000
+
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
