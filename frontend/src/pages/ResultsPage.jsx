@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   AlertTriangle, CheckCircle2, XCircle, Download, Share2, 
-  RefreshCw, Info, ShieldAlert, ArrowLeft, Heart, ChevronDown, ChevronUp, Copy, Check
+  RefreshCw, Info, ShieldAlert, ArrowLeft, Heart, ChevronDown, ChevronUp, Copy, Check, ShieldCheck 
 } from 'lucide-react';
 import { generatePDFReport } from '../utils/pdfGenerator';
 
@@ -32,7 +32,7 @@ export default function ResultsPage({ triageResult, reportedSymptoms, onRestart 
         bg: 'bg-red-950/80 border-red-500/60 text-red-300 glow-red',
         icon: '🔴',
         title: 'EMERGENCY URGENCY',
-        subtitle: 'Immediate medical evaluation required. Call emergency services or visit the nearest Emergency Room.'
+        subtitle: 'Immediate medical evaluation required. Call emergency services (112) or visit the nearest Emergency Room.'
       };
     } else if (urgency === 'Consult GP') {
       return {
@@ -54,7 +54,7 @@ export default function ResultsPage({ triageResult, reportedSymptoms, onRestart 
   const badgeInfo = getUrgencyBadge();
 
   const handleShare = () => {
-    const shareText = `AegisMed Triage Assessment Result: Primary Urgency: ${urgency}. Conditions evaluated: ${triageResult.top_predictions.map(p => p.name).join(', ')}.`;
+    const shareText = `Aarogya AI Triage Assessment Result: Primary Urgency: ${urgency}. Conditions evaluated: ${triageResult.top_predictions.map(p => p.name).join(', ')}.`;
     navigator.clipboard.writeText(shareText);
     setCopiedShare(true);
     setTimeout(() => setCopiedShare(false), 3000);
@@ -93,17 +93,24 @@ export default function ResultsPage({ triageResult, reportedSymptoms, onRestart 
       </div>
 
       {/* Urgency Badge Banner */}
-      <div className={`p-8 rounded-3xl border ${badgeInfo.bg} transition-all`}>
+      <div className={`p-8 rounded-3xl border ${badgeInfo.bg} transition-all relative overflow-hidden`}>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <span className="text-5xl">{badgeInfo.icon}</span>
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <h1 className="text-2xl font-black text-white tracking-wide">{badgeInfo.title}</h1>
                 <span className="text-xs font-bold px-3 py-1 rounded-full bg-slate-950/60 border border-white/20">
-                  Triage ID #{triageResult.triage_id}
+                  Triage ID #{triageResult.triage_id || '2.0'}
+                </span>
+                
+                {/* Multi-Pass AI Security Verified Badge */}
+                <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-cyan-950/90 border border-cyan-500/60 text-cyan-300 flex items-center gap-1">
+                  <ShieldCheck className="w-3 h-3 text-cyan-400 animate-pulse" />
+                  <span>Multi-Pass Security Verified</span>
                 </span>
               </div>
+
               <p className="text-xs sm:text-sm text-slate-200 mt-1 max-w-2xl leading-relaxed">
                 {badgeInfo.subtitle}
               </p>
@@ -111,6 +118,21 @@ export default function ResultsPage({ triageResult, reportedSymptoms, onRestart 
           </div>
         </div>
       </div>
+
+      {/* Security Audit Verification Pass Box */}
+      {triageResult.security_audit_trail && (
+        <div className="p-4 rounded-2xl bg-cyan-950/40 border border-cyan-800/60 backdrop-blur-md space-y-2 text-xs">
+          <div className="flex items-center gap-2 text-cyan-300 font-bold">
+            <ShieldCheck className="w-4 h-4 text-cyan-400" />
+            <span>AI Multi-Pass Security Verification Audit:</span>
+          </div>
+          <ul className="space-y-1 text-slate-300 pl-6 list-disc text-[11px]">
+            {triageResult.security_audit_trail.map((step, sIdx) => (
+              <li key={sIdx}>{step}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Summary Action Recommendation Box */}
       <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-md">

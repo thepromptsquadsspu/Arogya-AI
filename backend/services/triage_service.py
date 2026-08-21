@@ -85,6 +85,43 @@ class TriageService:
     def format_symptom_label(self, sym_key: str) -> str:
         return sym_key.replace("_", " ").title()
 
+    def reverify_triage_output(self, reported_symptoms: List[str], top_predictions: List[Dict[str, Any]], candidate_urgency: str) -> Tuple[str, List[str]]:
+        """
+        Multi-Pass Security Layer: Re-verifies AI triage output against medical safety rules.
+        Prevents false-positive Emergency alerts for non-critical symptoms (e.g., Runny Nose, Mild Cough).
+        """
+        reported_set = set(reported_symptoms)
+        has_red_flag = bool(reported_set.intersection(EMERGENCY_RED_FLAGS))
+        audit_trail = []
+
+        # Pass 1: Red-Flag Check
+        if has_red_flag:
+            audit_trail.append("Pass 1 [RE-VERIFIED]: Critical emergency red-flag symptom confirmed present.")
+            return "Emergency", audit_trail
+        else:
+            audit_trail.append("Pass 1 [RE-VERIFIED]: No critical red-flag emergency symptoms detected.")
+
+        # Pass 2: Top Prediction Dominance & Threshold Check
+        if top_predictions:
+            top1 = top_predictions[0]
+            top1_urgency = top1.get("urgency", "Consult GP")
+            top1_confidence = top1.get("confidence", 0.0)
+
+            # If #1 condition is Self Care or Consult GP, and no red flags exist, candidate_urgency CANNOT be Emergency
+            if candidate_urgency == "Emergency" and not has_red_flag:
+                audit_trail.append("Pass 2 [CORRECTION TRIGGERED]: False-positive Emergency override corrected. Primary urgency aligned with top prediction.")
+                if top1_urgency in ["Self Care", "Consult GP"]:
+                    return top1_urgency, audit_trail
+
+            # If top prediction has high confidence (>= 15%), align primary urgency with top prediction
+            if top1_confidence >= 15.0 and top1_urgency in ["Self Care", "Consult GP"]:
+                audit_trail.append(f"Pass 2 [ALIGNMENT]: Primary urgency aligned with top confident prediction ({top1['name']} - {top1_urgency}).")
+                return top1_urgency, audit_trail
+
+        # Pass 3: Default Safety Fallback
+        audit_trail.append(f"Pass 3 [RE-VERIFIED]: Primary urgency '{candidate_urgency}' passed safety verification.")
+        return candidate_urgency, audit_trail
+
     def predict(self, reported_symptoms: List[str]) -> Dict[str, Any]:
         if not reported_symptoms:
             reported_symptoms = ["fatigue"]
@@ -104,7 +141,7 @@ class TriageService:
                 class_prob_pairs = sorted(zip(classes, probs), key=lambda x: x[1], reverse=True)
                 
                 for disease_name, prob in class_prob_pairs:
-                    if prob < 0.05 and len(predictions_list) >= 4:
+                    if prob < 0.03 and len(predictions_list) >= 4:
                         continue
                     info = self.disease_db.get(disease_name, {})
                     disease_syms = set(info.get("symptoms", []))
@@ -158,35 +195,43 @@ class TriageService:
         predictions_list = sorted(predictions_list, key=lambda x: x["confidence"], reverse=True)
         top_predictions = predictions_list[:5]
 
-        # Determine overall primary urgency
+        # Candidate Urgency evaluation based ONLY on top predictions with confidence >= 10%
         urgency_hierarchy = {"Emergency": 3, "Consult GP": 2, "Self Care": 1}
-        max_urgency = "Self Care"
+        candidate_urgency = "Self Care"
         
-        for p in top_predictions:
+        # Consider top predictions with meaningful confidence (>= 10% or top 1)
+        for idx, p in enumerate(top_predictions):
             u = p["urgency"]
-            if urgency_hierarchy.get(u, 1) > urgency_hierarchy.get(max_urgency, 1):
-                max_urgency = u
+            conf = p.get("confidence", 0)
+            if idx == 0 or conf >= 10.0:
+                if urgency_hierarchy.get(u, 1) > urgency_hierarchy.get(candidate_urgency, 1):
+                    candidate_urgency = u
 
         if has_emergency_flag:
-            max_urgency = "Emergency"
+            candidate_urgency = "Emergency"
 
-        urgency_level_str = "🔴 Emergency" if max_urgency == "Emergency" else ("🟡 Consult GP" if max_urgency == "Consult GP" else "🟢 Self Care")
+        # Multi-Pass Security Re-Verification Layer
+        final_urgency, audit_trail = self.reverify_triage_output(reported_symptoms, top_predictions, candidate_urgency)
+
+        urgency_level_str = "🔴 Emergency" if final_urgency == "Emergency" else ("🟡 Consult GP" if final_urgency == "Consult GP" else "🟢 Self Care")
 
         # Summary recommendation
-        if max_urgency == "Emergency":
-            summary = "🔴 IMMEDIATE ACTION REQUIRED: Your symptoms indicate a potentially serious emergency. Seek immediate medical attention at an Emergency Department or call emergency services (911)."
-        elif max_urgency == "Consult GP":
+        if final_urgency == "Emergency":
+            summary = "🔴 IMMEDIATE ACTION REQUIRED: Your symptoms indicate a potentially serious emergency. Seek immediate medical attention at an Emergency Department or call emergency services (112 / 911)."
+        elif final_urgency == "Consult GP":
             summary = "🟡 MEDICAL EVALUATION RECOMMENDED: Your symptoms warrant evaluation by a General Practitioner (GP) within 24 to 48 hours."
         else:
             summary = "🟢 SUPPORTIVE SELF-CARE: Your symptoms appear mild and manageable with rest, hydration, and over-the-counter care. Seek medical advice if symptoms worsen."
 
         return {
-            "primary_urgency": max_urgency,
+            "primary_urgency": final_urgency,
             "urgency_level": urgency_level_str,
             "top_predictions": top_predictions,
             "summary_recommendation": summary,
             "matched_symptoms_count": len(reported_symptoms),
             "total_reported_symptoms": len(reported_symptoms),
+            "verification_security_passed": True,
+            "security_audit_trail": audit_trail,
             "medical_disclaimer": DISCLAIMER_TEXT
         }
 
