@@ -49,7 +49,7 @@ export default function App() {
         primary_urgency: symptomsList.includes('chest_pain') ? 'Emergency' : 'Consult GP',
         urgency_level: symptomsList.includes('chest_pain') ? '🔴 Emergency' : '🟡 Consult GP',
         summary_recommendation: symptomsList.includes('chest_pain') 
-          ? '🔴 Seek immediate emergency medical care at an Emergency Room.' 
+          ? '🔴 Seek immediate emergency medical care at an Emergency Room or call 112.' 
           : '🟡 Consult your primary care doctor within 24-48 hours.',
         top_predictions: [
           {
@@ -64,7 +64,7 @@ export default function App() {
             explanation: `Your symptoms (${symptomsList.join(', ')}) strongly match clinical indicators.`
           }
         ],
-        medical_disclaimer: "This application is an educational triage assistant and is NOT a substitute for professional medical advice."
+        medical_disclaimer: "Aarogya AI is an educational decision-support triage assistant and is NOT a substitute for professional medical advice."
       };
       setTriageResult(mockResult);
       setActiveTab('results');
@@ -92,7 +92,7 @@ export default function App() {
         {isEvaluating ? (
           <div className="max-w-md mx-auto py-28 text-center space-y-4">
             <div className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto" />
-            <h2 className="text-xl font-bold text-white">Running Multi-label ML Triage Model...</h2>
+            <h2 className="text-xl font-bold text-white">Running Aarogya AI Triage Engine...</h2>
             <p className="text-xs text-slate-400">Evaluating symptom co-occurrence probabilities & emergency safety rules</p>
           </div>
         ) : (
@@ -140,7 +140,7 @@ export default function App() {
       {/* Persistent Footer */}
       <footer className="border-t border-slate-900 bg-slate-950 py-8 px-4 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto space-y-2">
-          <p>© 2026 AegisMed AI Triage Advisor. All rights reserved. Educational Triage Assistant.</p>
+          <p>© 2026 Aarogya AI - Clinical Symptom Triage Advisor. All rights reserved.</p>
           <p className="text-[11px] text-slate-600">Built with FastAPI, Scikit-Learn, React, Tailwind CSS, and Framer Motion.</p>
         </div>
       </footer>

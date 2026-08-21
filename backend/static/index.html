@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AegisMed - Interactive AI Medical Symptom Triage Advisor</title>
+  <title>Aarogya AI - Clinical Medical Symptom Triage Advisor</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -25,7 +25,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     body { font-family: 'Inter', sans-serif; }
@@ -44,29 +44,29 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- Top Disclaimer Banner -->
-  <div className="bg-slate-900 border-b border-cyan-900/50 px-4 py-2 text-xs text-slate-300 flex justify-between items-center">
-    <div className="flex items-center gap-2">
-      <span className="text-cyan-400 font-bold">⚠️ Medical Disclaimer:</span>
-      <span>Educational decision-support triage assistant. Not a substitute for professional medical advice or emergency care.</span>
+  <!-- Top Prominent Disclaimer Banner -->
+  <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-cyan-900/60 px-4 py-2.5 text-xs text-slate-300 flex justify-between items-center">
+    <div class="flex items-center gap-2 max-w-5xl">
+      <span class="text-cyan-400 font-extrabold shrink-0">🛡️ IMPORTANT MEDICAL DISCLAIMER:</span>
+      <span class="text-slate-200">Aarogya AI is an educational decision-support triage assistant and is NOT a substitute for professional medical advice, diagnosis, or emergency clinical care.</span>
     </div>
-    <div className="hidden sm:block text-[11px] text-cyan-300 font-semibold bg-cyan-950 px-2.5 py-0.5 rounded-full border border-cyan-800">
+    <div class="hidden md:block text-[11px] text-cyan-300 font-semibold bg-cyan-950 px-2.5 py-0.5 rounded-full border border-cyan-800 shrink-0">
       🔒 100% Anonymous & Private
     </div>
   </div>
 
   <!-- Header Navbar -->
-  <header className="sticky top-0 z-40 bg-slate-950/90 border-b border-slate-800 backdrop-blur-md">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+  <header class="sticky top-0 z-40 bg-slate-950/90 border-b border-slate-800 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div onclick="switchTab('landing')" class="flex items-center gap-3 cursor-pointer group">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-400 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-teal-400 to-emerald-400 p-0.5 shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition">
           <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-bold text-xl text-cyan-400">
             🩺
           </div>
         </div>
         <div>
-          <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">AegisMed</span>
-          <span class="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800 text-cyan-300">Triage AI 2.0</span>
+          <span class="text-xl font-black tracking-tight bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">Aarogya AI</span>
+          <span class="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-950 border border-cyan-800 text-cyan-300">Triage 2.0</span>
         </div>
       </div>
 
@@ -75,11 +75,11 @@
         <button id="nav-checker" onclick="switchTab('checker')" class="px-4 py-2 rounded-full font-semibold transition text-slate-300 hover:text-white">Symptom Checker</button>
         <button id="nav-history" onclick="switchTab('history')" class="px-4 py-2 rounded-full font-semibold transition text-slate-300 hover:text-white">History</button>
         <button id="nav-admin" onclick="switchTab('admin')" class="px-4 py-2 rounded-full font-semibold transition text-slate-300 hover:text-white">Admin & ML Hub</button>
-        <button id="nav-about" onclick="switchTab('about')" class="px-4 py-2 rounded-full font-semibold transition text-slate-300 hover:text-white">About</button>
+        <button id="nav-about" onclick="switchTab('about')" class="px-4 py-2 rounded-full font-semibold transition text-slate-300 hover:text-white">About & Manual</button>
       </nav>
 
-      <a href="tel:911" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white text-xs font-extrabold shadow-lg shadow-red-900/40 transition">
-        <span>🚨 Emergency 911</span>
+      <a href="tel:112" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white text-xs font-extrabold shadow-lg shadow-red-900/40 transition">
+        <span>🚨 Emergency (112)</span>
       </a>
     </div>
   </header>
@@ -93,13 +93,13 @@
   </div>
 
   <!-- Main Container -->
-  <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- 1. LANDING PAGE VIEW -->
     <section id="view-landing" class="space-y-16 py-6">
       <div class="max-w-3xl mx-auto text-center space-y-6">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-800/60 text-cyan-300 text-xs font-semibold shadow-inner">
-          <span>✨ AI-Powered Clinical Decision Support & Symptom Triage</span>
+          <span>✨ AI-Powered Clinical Decision Support & Risk Triage</span>
         </div>
 
         <h1 class="text-4xl sm:text-6xl font-black text-white leading-tight tracking-tight">
@@ -107,10 +107,25 @@
         </h1>
 
         <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-          Analyze user-reported symptoms using calibrated multi-label Machine Learning, predict potential medical conditions, and receive actionable triage urgency guidance.
+          Welcome to <strong class="text-cyan-300 font-bold">Aarogya AI</strong>. Analyze your symptoms using calibrated multi-label Machine Learning, predict potential conditions, and receive actionable triage guidance.
         </p>
 
-        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <!-- Sleek Red Pulsing Emergency Circle Button -->
+        <div class="py-2 flex flex-col items-center justify-center">
+          <a href="tel:112" class="relative group flex items-center justify-center cursor-pointer select-none">
+            <span class="absolute w-24 h-24 rounded-full bg-red-600/30 animate-ping pointer-events-none"></span>
+            <span class="absolute w-20 h-20 rounded-full bg-red-500/40 blur-md group-hover:bg-red-500/60 transition"></span>
+            <div class="relative w-16 h-16 rounded-full bg-gradient-to-tr from-red-700 via-red-600 to-rose-500 border-2 border-white/30 flex items-center justify-center shadow-xl glow-red group-hover:scale-110 transition duration-300 text-2xl text-white">
+              📞
+            </div>
+          </a>
+          <span class="mt-2 text-xs font-extrabold tracking-wide text-red-400 flex items-center gap-1">
+            <span>EMERGENCY ASSISTANCE</span>
+            <span class="px-2 py-0.5 rounded-full bg-red-950/80 border border-red-800 text-red-300 text-[10px]">112</span>
+          </span>
+        </div>
+
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
           <button onclick="switchTab('checker')" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 text-slate-950 font-extrabold text-base shadow-xl shadow-cyan-500/25 hover:scale-105 transition flex items-center justify-center gap-2">
             <span>Launch Interactive Symptom Checker</span>
             <span>→</span>
@@ -123,7 +138,7 @@
         <div class="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/30 backdrop-blur-md space-y-3">
           <div class="text-4xl">🟢</div>
           <h3 class="text-lg font-bold text-emerald-400">Self Care</h3>
-          <p class="text-xs text-slate-300 leading-relaxed">Low urgency, self-limiting conditions manageable with rest, fluids, and OTC support (Common Cold, Seasonal Allergies, Tension Headache).</p>
+          <p class="text-xs text-slate-300 leading-relaxed">Low urgency, self-limiting conditions manageable with rest, fluids, and OTC care (Common Cold, Seasonal Allergies, Tension Headache).</p>
         </div>
 
         <div class="p-6 rounded-2xl bg-slate-900/80 border border-amber-500/30 backdrop-blur-md space-y-3">
@@ -135,7 +150,7 @@
         <div class="p-6 rounded-2xl bg-slate-900/80 border border-red-500/30 backdrop-blur-md space-y-3">
           <div class="text-4xl">🔴</div>
           <h3 class="text-lg font-bold text-red-400">Emergency</h3>
-          <p class="text-xs text-slate-300 leading-relaxed">High-risk emergencies requiring immediate medical attention at an ER or 911 dispatch (Heart Attack, Stroke, Sepsis, Severe Pneumonia).</p>
+          <p class="text-xs text-slate-300 leading-relaxed">High-risk emergencies requiring immediate medical attention at an ER or 112 / 911 dispatch (Heart Attack, Stroke, Sepsis, Severe Pneumonia).</p>
         </div>
       </div>
     </section>
@@ -198,7 +213,7 @@
     <section id="view-results" class="hidden space-y-8">
       <div id="urgency-banner" class="p-8 rounded-3xl border backdrop-blur-md transition space-y-4"></div>
       
-      <div className="flex justify-between items-center border-b border-slate-800 pb-4">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-4">
         <div>
           <h2 class="text-xl font-bold text-white">Predicted Medical Conditions</h2>
           <p class="text-xs text-slate-400">Multi-label Random Forest classification results</p>
@@ -215,7 +230,7 @@
     <section id="view-admin" class="hidden space-y-8">
       <div class="flex items-center justify-between border-b border-slate-800 pb-4">
         <div>
-          <h1 class="text-2xl font-bold text-white">Admin & Machine Learning Hub</h1>
+          <h1 class="text-2xl font-bold text-white">Aarogya AI Admin & ML Hub</h1>
           <p class="text-xs text-slate-400 mt-1">Real-time system usage and ML model evaluation matrix</p>
         </div>
         <button onclick="loadAnalyticsData()" class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-cyan-400">
@@ -245,7 +260,7 @@
 
       <!-- Live Confusion Matrix -->
       <div class="p-6 rounded-3xl bg-slate-900 border border-cyan-500/30 space-y-4">
-        <h3 class="text-sm font-bold text-white">Live ML Class Confusion Matrix Heatmap</h3>
+        <h3 class="text-sm font-bold text-white">Live ML Class Confusion Matrix Heatmap (Top Classes)</h3>
         <div id="matrix-container" class="overflow-x-auto"></div>
       </div>
     </section>
@@ -259,19 +274,53 @@
       <div id="history-container" class="space-y-3"></div>
     </section>
 
-    <!-- 6. ABOUT VIEW -->
-    <section id="view-about" class="hidden space-y-8 max-w-3xl mx-auto text-slate-300 text-sm">
-      <h1 class="text-3xl font-extrabold text-white text-center">About AegisMed</h1>
-      <p class="leading-relaxed">
-        AegisMed is an AI-powered clinical decision-support triage assistant. It analyzes symptom co-occurrence vectors using a calibrated Scikit-Learn Random Forest Classifier and calculates entropy to prompt diagnostic follow-up questions.
-      </p>
+    <!-- 6. ABOUT VIEW & INSTRUCTION MANUAL -->
+    <section id="view-about" class="hidden space-y-8 max-w-4xl mx-auto text-slate-300 text-sm">
+      <div class="text-center space-y-2">
+        <h1 class="text-3xl sm:text-4xl font-black text-white">About & User Instruction Manual</h1>
+        <p class="text-xs text-slate-400">Comprehensive clinical protocol & operation manual for Aarogya AI</p>
+      </div>
+
+      <!-- User Instruction Steps -->
+      <div class="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 space-y-4">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <span>📖 User Operation Manual</span>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+            <div class="text-cyan-400 font-bold">Step 1: Select Symptoms</div>
+            <p className="text-slate-400">Choose symptoms from quick search or the 100+ symptom library palette.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+            <div class="text-teal-400 font-bold">Step 2: AI Follow-ups</div>
+            <p className="text-slate-400">Answer information entropy follow-up questions to refine candidate conditions.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+            <div class="text-emerald-400 font-bold">Step 3: Clinical PDF</div>
+            <p className="text-slate-400">View urgency categorization, matched symptoms, and download PDF summary.</p>
+          </div>
+        </div>
+      </div>
+
       <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
-        <h3 class="font-bold text-white">Emergency Hotline Numbers</h3>
-        <div class="grid grid-cols-2 gap-4 text-xs">
-          <div>US / Canada: <strong class="text-red-400">911</strong></div>
-          <div>Europe & UK: <strong class="text-cyan-400">112 / 999</strong></div>
-          <div>Australia: <strong class="text-emerald-400">000</strong></div>
-          <div>India: <strong class="text-amber-400">112</strong></div>
+        <h3 class="font-bold text-white text-base">Emergency Contact Directory (India Primary)</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+          <div class="p-3 rounded-xl bg-slate-950 border border-red-900/60">
+            <div class="text-slate-400 font-semibold">India Emergency</div>
+            <div class="text-xl font-black text-red-400 mt-1">112</div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="text-slate-400 font-semibold">Ambulance (India)</div>
+            <div class="text-lg font-bold text-cyan-400 mt-1">102</div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="text-slate-400 font-semibold">US / Canada</div>
+            <div class="text-lg font-bold text-amber-400 mt-1">911</div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+            <div class="text-slate-400 font-semibold">Europe & UK</div>
+            <div class="text-lg font-bold text-emerald-400 mt-1">112 / 999</div>
+          </div>
         </div>
       </div>
     </section>
@@ -280,7 +329,7 @@
 
   <!-- Footer -->
   <footer class="border-t border-slate-900 bg-slate-950 py-6 text-center text-xs text-slate-500">
-    © 2026 AegisMed AI Triage Advisor. Built with FastAPI, Scikit-Learn, and Tailwind CSS.
+    © 2026 Aarogya AI - Clinical Symptom Triage Advisor. Built with FastAPI, Scikit-Learn, and Tailwind CSS.
   </footer>
 
   <!-- Application Script -->
@@ -481,7 +530,7 @@
       doc.rect(0, 0, 210, 24, 'F');
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(16);
-      doc.text("AegisMed Triage Clinical Report", 14, 16);
+      doc.text("Aarogya AI Clinical Triage Report", 14, 16);
       
       doc.setTextColor(15, 23, 42);
       doc.setFontSize(11);
@@ -494,7 +543,7 @@
         y += 8;
       });
 
-      doc.save(`AegisMed_Triage_Report_${Date.now()}.pdf`);
+      doc.save(`Aarogya_AI_Report_${Date.now()}.pdf`);
     }
 
     async function loadAnalyticsData() {

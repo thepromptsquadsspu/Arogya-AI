@@ -10,9 +10,9 @@ from database import init_db, SessionLocal, AuditLog
 from routers.triage import router as triage_router
 
 app = FastAPI(
-    title="Interactive Medical Symptom Triage Advisor API",
+    title="Aarogya AI - Medical Symptom Triage Advisor API",
     description="Production-grade AI triage API providing multi-label disease prediction, risk categorization, and anonymized audit logging.",
-    version="1.0.0"
+    version="2.0.0"
 )
 
 # Enable CORS for frontend integration
@@ -36,7 +36,7 @@ def serve_index():
     index_path = os.path.join(static_dir, "index.html")
     if os.path.exists(index_path):
         return FileResponse(index_path)
-    return {"message": "AegisMed Triage Advisor API Running. Visit /docs for API documentation."}
+    return {"message": "Aarogya AI API Running. Visit /docs for API documentation."}
 
 @app.on_event("startup")
 def on_startup():

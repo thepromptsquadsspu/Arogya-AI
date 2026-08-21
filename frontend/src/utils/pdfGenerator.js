@@ -6,22 +6,18 @@ export const generatePDFReport = (triageData, reportedSymptoms) => {
     year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
   });
 
-  // Colors
-  const primaryColor = '#0891b2'; // Cyan-600
-  const darkColor = '#0f172a';
-
-  // Title Header
-  doc.setFillColor(8, 145, 178); // Cyan background
+  // Header Bar
+  doc.setFillColor(8, 145, 178); // Cyan-600
   doc.rect(0, 0, 210, 28, 'F');
   
   doc.setTextColor(255, 255, 255);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(20);
-  doc.text('AegisMed - Triage Advisor Report', 14, 18);
+  doc.text('Aarogya AI - Clinical Triage Report', 14, 18);
 
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
-  doc.text(`Generated: ${dateStr}`, 140, 18);
+  doc.text(`Generated: ${dateStr}`, 138, 18);
 
   let yPos = 38;
 
@@ -33,9 +29,9 @@ export const generatePDFReport = (triageData, reportedSymptoms) => {
   doc.setTextColor(185, 28, 28);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
-  doc.text('MEDICAL DISCLAIMER:', 18, yPos + 6);
+  doc.text('IMPORTANT MEDICAL DISCLAIMER:', 18, yPos + 6);
   doc.setFont('helvetica', 'normal');
-  doc.text('This document is an educational triage summary and NOT a formal medical diagnosis.', 18, yPos + 12);
+  doc.text('Aarogya AI is an educational decision-support triage assistant and NOT a substitute for medical advice.', 18, yPos + 12);
   
   yPos += 26;
 
@@ -66,7 +62,7 @@ export const generatePDFReport = (triageData, reportedSymptoms) => {
   yPos += 6;
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
-  const symText = reportedSymptoms.map(s => s.replace(/_/g, ' ')).join(', ');
+  const symText = reportedSymptoms.map(s => s.replace(/_/g, ' ').toUpperCase()).join(', ');
   doc.text(symText || 'None specified', 14, yPos);
 
   yPos += 14;
@@ -74,7 +70,7 @@ export const generatePDFReport = (triageData, reportedSymptoms) => {
   // Top Predicted Conditions Section
   doc.setFontSize(13);
   doc.setFont('helvetica', 'bold');
-  doc.text('2. Top Predicted Conditions', 14, yPos);
+  doc.text('2. Predicted Medical Conditions', 14, yPos);
   yPos += 8;
 
   const predictions = triageData.top_predictions || [];
@@ -123,5 +119,5 @@ export const generatePDFReport = (triageData, reportedSymptoms) => {
   doc.text(recLines, 14, yPos);
 
   // Save File
-  doc.save(`AegisMed_Triage_Report_${Date.now()}.pdf`);
+  doc.save(`Aarogya_AI_Triage_Report_${Date.now()}.pdf`);
 };
