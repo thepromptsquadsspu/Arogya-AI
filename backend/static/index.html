@@ -29,10 +29,11 @@
 
   <style>
     body { font-family: 'Inter', sans-serif; }
-    .glass-card {
+    .glass-banner {
       background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(6, 182, 212, 0.3);
     }
     .glow-emerald { box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.35); }
     .glow-amber { box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.35); }
@@ -44,14 +45,26 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-slate-950">
 
-  <!-- Top Prominent Disclaimer Banner -->
-  <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-cyan-900/60 px-4 py-2.5 text-xs text-slate-300 flex justify-between items-center">
-    <div class="flex items-center gap-2 max-w-5xl">
-      <span class="text-cyan-400 font-extrabold shrink-0">🛡️ IMPORTANT MEDICAL DISCLAIMER:</span>
-      <span class="text-slate-200">Aarogya AI is an educational decision-support triage assistant and is NOT a substitute for professional medical advice, diagnosis, or emergency clinical care.</span>
-    </div>
-    <div class="hidden md:block text-[11px] text-cyan-300 font-semibold bg-cyan-950 px-2.5 py-0.5 rounded-full border border-cyan-800 shrink-0">
-      🔒 100% Anonymous & Private
+  <!-- Top Glassmorphic Professional Clinical Disclaimer Banner -->
+  <div className="relative z-50 glass-banner shadow-lg shadow-cyan-950/30">
+    <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-80 animate-pulse"></div>
+    <div class="max-w-7xl mx-auto px-4 py-2.5 sm:px-6 lg:px-8 flex justify-between items-center text-xs">
+      <div class="flex items-center gap-3">
+        <div class="relative flex items-center justify-center">
+          <span class="absolute w-6 h-6 rounded-full bg-cyan-500/20 animate-ping"></span>
+          <div class="relative p-1 rounded-lg bg-cyan-950 border border-cyan-700/60 text-cyan-400 shadow-sm">
+            🛡️
+          </div>
+        </div>
+        <p class="text-slate-200">
+          <strong class="text-cyan-300 font-extrabold tracking-wide uppercase text-[11px] mr-2">⚕️ CLINICAL DECISION SUPPORT NOTICE</strong>
+          <span class="hidden md:inline text-slate-300">Aarogya AI is an educational clinical triage engine. It is not a substitute for medical advice, diagnosis, or emergency care.</span>
+          <span class="md:hidden text-slate-300">Educational triage engine. Not for diagnosis or emergency care.</span>
+        </p>
+      </div>
+      <div class="hidden sm:flex items-center gap-2 text-[11px] text-cyan-300 font-semibold bg-cyan-950/80 px-3 py-1 rounded-full border border-cyan-800 shrink-0">
+        <span>🔒 100% Anonymous & Private</span>
+      </div>
     </div>
   </div>
 
